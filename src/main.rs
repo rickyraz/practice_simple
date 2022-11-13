@@ -1,3 +1,4 @@
+use std::io;
 fn main() {
     temp_calc();
     nth_fibonacci_number();
@@ -21,11 +22,31 @@ fn temp_calc() {
 }
 
 fn nth_fibonacci_number() {
-    for nomer in 0..13 {
-        println!(" fibonacci ({}) => {}", nomer, fib_sequence(nomer))
+    // for nomer in 0..13 {
+    //     println!(" fibonacci ({}) => {}", nomer, fib_sequence(nomer))
+    // }
+
+    println!("To end the program, type `exit` ");
+
+    loop {
+        println!("Type a positive integer");
+
+        let mut int = String::new();
+        io::stdin().read_line(&mut int).expect("");
+
+        if int.trim() == "exit" {
+            break;
+        }
+
+        let int: u32 = match int.trim().parse() {
+            Ok(int) => int,
+            Err(_) => continue,
+        };
+
+        println!("Fibonacci ({}) => {}", int, fib_sequence(int));
     }
 
-    fn fib_sequence(n: i32) -> i32 {
+    fn fib_sequence(n: u32) -> u32 {
         if n <= 0 {
             return 0;
         } else if n == 1 {
