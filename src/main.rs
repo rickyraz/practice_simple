@@ -38,6 +38,7 @@ fn nth_fibonacci_number() {
             break;
         }
 
+        // Shadowing to convert String to integer
         let int: u32 = match int.trim().parse() {
             Ok(int) => int,
             Err(_) => continue,
