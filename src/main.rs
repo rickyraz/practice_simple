@@ -1,7 +1,8 @@
 use std::io;
 fn main() {
-    temp_calc();
-    nth_fibonacci_number();
+    // temp_calc();
+    // nth_fibonacci_number();
+    area_of_rectangle();
 }
 
 fn temp_calc() {
@@ -56,5 +57,54 @@ fn nth_fibonacci_number() {
             // Fibonacci sequence by recursively
             return fib_sequence(n - 1) + fib_sequence(n - 2);
         }
+    }
+}
+
+fn area_of_rectangle() {
+    let width = 30;
+    let height = 50;
+
+    let rect1 = (24, 90);
+
+    let rect2 = Rectangle {
+        width: 250,
+        height: 50,
+    };
+
+    println!(
+        "The area of the rectangle is {} square pixels.",
+        area(width, height)
+    );
+
+    println!(
+        "The area of the rectangle is {} square pixels.",
+        area2(rect1)
+    );
+
+    println!(
+        "The area of the rectangle is {} square pixels.",
+        area3(&rect2)
+    );
+
+    println!("rect2 is {:?}", rect2);
+
+    #[derive(Debug)]
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
+
+    // --The area function is supposed to calculate the area of one rectangle, but the function we wrote has two parameters, and it’s not clear anywhere in our program that the parameters are related. It would be more readable and more manageable to group width and height together.
+
+    fn area(width: u32, height: u32) -> u32 {
+        width * height
+    }
+
+    fn area2(dimensions: (u32, u32)) -> u32 {
+        dimensions.0 * dimensions.1
+    }
+
+    fn area3(rectangle: &Rectangle) -> u32 {
+        rectangle.width * rectangle.height
     }
 }
