@@ -68,9 +68,10 @@ fn area_of_rectangle() {
 
     let scale = 2;
     let rect2 = Rectangle {
-        width: dbg!(30 * scale),
+        width: dbg!(38 * scale),
         height: 50,
     };
+    dbg!(&rect2);
 
     println!(
         "The area of the rectangle is {} square pixels.",
@@ -88,7 +89,6 @@ fn area_of_rectangle() {
     );
 
     println!("rect2 is {:?}", rect2);
-    dbg!(&rect1);
 
     #[derive(Debug)]
     struct Rectangle {
