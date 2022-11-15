@@ -66,8 +66,9 @@ fn area_of_rectangle() {
 
     let rect1 = (24, 90);
 
+    let scale = 2;
     let rect2 = Rectangle {
-        width: 250,
+        width: dbg!(30 * scale),
         height: 50,
     };
 
@@ -87,6 +88,7 @@ fn area_of_rectangle() {
     );
 
     println!("rect2 is {:?}", rect2);
+    dbg!(&rect1);
 
     #[derive(Debug)]
     struct Rectangle {
@@ -95,7 +97,6 @@ fn area_of_rectangle() {
     }
 
     // --The area function is supposed to calculate the area of one rectangle, but the function we wrote has two parameters, and it’s not clear anywhere in our program that the parameters are related. It would be more readable and more manageable to group width and height together.
-
     fn area(width: u32, height: u32) -> u32 {
         width * height
     }
