@@ -1,8 +1,19 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 use std::io;
+
 fn main() {
     // temp_calc();
     // nth_fibonacci_number();
-    area_of_rectangle();
+    // area_of_rectangle();
+
+    let mut users = ["John", "Jane", "Jack", "Jill"];
+    println!("Before: {}", users[0]);
+
+    // mutate array element 0
+    users[0] = "John Doe";
+    println!("After: {}", users[0]);
 }
 
 fn temp_calc() {
@@ -61,32 +72,54 @@ fn nth_fibonacci_number() {
 }
 
 fn area_of_rectangle() {
-    let width = 30;
-    let height = 50;
-
-    let rect1 = (24, 90);
+    // let width = 30;
+    // let height = 50;
+    // let rect1 = (24, 90);
 
     let scale = 2;
+
     let rect2 = Rectangle {
         width: dbg!(38 * scale),
-        height: 50,
+        height: 10,
     };
+
+    let rect3 = Rectangle {
+        width: 10,
+        height: 40,
+    };
+    let rect4 = Rectangle {
+        width: 60,
+        height: 45,
+    };
+
     dbg!(&rect2);
 
-    println!(
-        "The area of the rectangle is {} square pixels.",
-        area(width, height)
-    );
+    // println!(
+    //     "The area of the rectangle is {} square pixels.",
+    //     area(width, height)
+    // );
+
+    // println!(
+    //     "The area of the rectangle is {} square pixels.",
+    //     area2(rect1)
+    // );
 
     println!(
-        "The area of the rectangle is {} square pixels.",
-        area2(rect1)
-    );
-
-    println!(
-        "The area of the rectangle is {} square pixels.",
+        "The area of the rectangle is {} square pixels - using fn area.",
         area3(&rect2)
     );
+
+    println!(
+        "The area of the rectangle is {} square pixels - using impl area.",
+        rect2.area()
+    );
+
+    if rect2.width() {
+        println!("The rectangle has a nonzero width; it is {}", rect2.width);
+    }
+
+    println!("Can rect1 hold rect2? {}", rect2.can_hold(&rect3));
+    println!("Can rect1 hold rect3? {}", rect2.can_hold(&rect4));
 
     println!("rect2 is {:?}", rect2);
 
@@ -96,14 +129,29 @@ fn area_of_rectangle() {
         height: u32,
     }
 
-    // --The area function is supposed to calculate the area of one rectangle, but the function we wrote has two parameters, and it’s not clear anywhere in our program that the parameters are related. It would be more readable and more manageable to group width and height together.
-    fn area(width: u32, height: u32) -> u32 {
-        width * height
+    // reading (&self), mutating (&mut self), or consuming (self).
+    impl Rectangle {
+        fn area(&self) -> u32 {
+            self.width * self.height
+        }
+        fn width(&self) -> bool {
+            self.width > 0
+        }
+        // Methods with More Parameters
+        fn can_hold(&self, other: &Rectangle) -> bool {
+            self.width > other.width && self.height > other.height
+        }
     }
 
-    fn area2(dimensions: (u32, u32)) -> u32 {
-        dimensions.0 * dimensions.1
-    }
+    // -- The area function is supposed to calculate the area of one rectangle, but the function we wrote has two parameters, and it’s not clear anywhere in our program that the parameters are related. It would be more readable and more manageable to group width and height together.
+
+    // fn area(width: u32, height: u32) -> u32 {
+    //     width * height
+    // }
+
+    // fn area2(dimensions: (u32, u32)) -> u32 {
+    //     dimensions.0 * dimensions.1
+    // }
 
     fn area3(rectangle: &Rectangle) -> u32 {
         rectangle.width * rectangle.height
