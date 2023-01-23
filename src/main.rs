@@ -4,50 +4,8 @@
 use std::collections::HashMap;
 use std::io;
 
-
-
-fn mode_median_average() {
-    fn average(numbers: &[i32]) -> f32 {
-        numbers.iter().sum::<i32>() as f32 / numbers.len() as f32
-    }
-    
-    fn median(numbers: &mut [i32]) -> f64 {
-        // numbers.sort();
-        // let mid = numbers.len() / 2;
-        // numbers[mid]
-    
-        if (numbers.len() % 2) == 0 {
-            let ind_left = numbers.len() / 2 - 1;
-            let ind_right = numbers.len() / 2;
-            (numbers[ind_left] + numbers[ind_right]) as f64 / 2.0
-        } else {
-            numbers[(numbers.len() / 2)] as f64
-        }
-    }
-    
-    fn mode(numbers: &[i32]) -> i32 {
-        let mut occurrences = HashMap::new();
-    
-        for &value in numbers {
-            *occurrences.entry(value).or_insert(0) += 1;
-        }
-    
-        occurrences
-            .into_iter()
-            .max_by_key(|&(_, count)| count)
-            .map(|(val, _)| val)
-            .expect("Cannot compute the mode of zero numbers")
-    }
-
-    let mut numbers = [42, 1, 36, 34, 76, 378, 43, 1, 43, 54, 2, 3, 43, 78];
-
-    println!("AVERAGE: {}", average(&numbers));
-    println!("MEDIAN: {}", median(&mut numbers));
-    println!("MODE: {}", mode(&numbers));
-}
-
 fn temp_calc() {
-    let celcius_temp: i32 = 90;
+    let celcius_temp: i32 = -275;
     let faren_temp: f32 = 132.8;
 
     let test1 = convert_c_to_f(celcius_temp);
@@ -70,10 +28,21 @@ fn nth_fibonacci_number() {
 
     println!("To end the program, type `exit` ");
 
+    fn fib_sequence(n: u32) -> u32 {
+        if n <= 0 {
+            return 0;
+        } else if n == 1 {
+            return 1;
+        } else {
+            // Fibonacci sequence by recursively
+            return fib_sequence(n - 1) + fib_sequence(n - 2);
+        }
+    }
+
     loop {
         println!("Type a positive integer");
 
-        let mut int = String::new();
+        let mut int: String = String::new();
         io::stdin().read_line(&mut int).expect("");
 
         if int.trim() == "exit" {
@@ -87,17 +56,6 @@ fn nth_fibonacci_number() {
         };
 
         println!("Fibonacci ({}) => {}", int, fib_sequence(int));
-    }
-
-    fn fib_sequence(n: u32) -> u32 {
-        if n <= 0 {
-            return 0;
-        } else if n == 1 {
-            return 1;
-        } else {
-            // Fibonacci sequence by recursively
-            return fib_sequence(n - 1) + fib_sequence(n - 2);
-        }
     }
 }
 
@@ -143,14 +101,15 @@ fn area_of_rectangle() {
     let scale = 2;
 
     let rect2 = Rectangle {
-        width: dbg!(38 * scale),
-        height: 10,
+        width: dbg!(22 * scale),
+        height: 42,
     };
 
     let rect3 = Rectangle {
         width: 10,
         height: 40,
     };
+
     let rect4 = Rectangle {
         width: 60,
         height: 45,
@@ -183,17 +142,54 @@ fn area_of_rectangle() {
         println!("The rectangle has a nonzero width; it is {}", rect2.width);
     }
 
-    println!("Can rect1 hold rect2? {}", rect2.can_hold(&rect3));
-    println!("Can rect1 hold rect3? {}", rect2.can_hold(&rect4));
+    println!("Can rect2 hold rect3? {}", rect2.can_hold(&rect3));
+    println!("Can rect2 hold rect4? {}", rect2.can_hold(&rect4));
     println!("rect2 is {:?}", rect2);
 }
 
-// -----------------
+fn mode_median_average() {
+    fn average(numbers: &[i32]) -> f32 {
+        numbers.iter().sum::<i32>() as f32 / numbers.len() as f32
+    }
+
+    fn median(numbers: &mut [i32]) -> f64 {
+        // numbers.sort();
+        // let mid = numbers.len() / 2;
+        // numbers[mid]
+
+        if (numbers.len() % 2) == 0 {
+            let ind_left = numbers.len() / 2 - 1;
+            let ind_right = numbers.len() / 2;
+            (numbers[ind_left] + numbers[ind_right]) as f64 / 2.0
+        } else {
+            numbers[(numbers.len() / 2)] as f64
+        }
+    }
+
+    fn mode(numbers: &[i32]) -> i32 {
+        let mut occurrences = HashMap::new();
+
+        for &value in numbers {
+            *occurrences.entry(value).or_insert(0) += 1;
+        }
+
+        occurrences
+            .into_iter()
+            .max_by_key(|&(_, count)| count)
+            .map(|(val, _)| val)
+            .expect("Cannot compute the mode of zero numbers")
+    }
+
+    let mut numbers = [42, 1, 36, 34, 76, 378, 43, 1, 43, 54, 2, 3, 43, 78];
+
+    println!("AVERAGE: {}", average(&numbers));
+    println!("MEDIAN: {}", median(&mut numbers));
+    println!("MODE: {}", mode(&numbers));
+}
 
 fn main() {
     // temp_calc();
     // nth_fibonacci_number();
-    // area_of_rectangle();
-    // array();
-    mode_median_average();
+    area_of_rectangle();
+    // mode_median_average();
 }
