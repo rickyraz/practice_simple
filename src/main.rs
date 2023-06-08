@@ -128,7 +128,7 @@ fn area_of_rectangle() {
     // );
 
     println!(
-        "The area of the rectangle is {} square pixels - using fn area.",
+        "The area of the rectangle is {} square pixels - using fn area3.",
         area3(&rect2)
     );
 
@@ -162,7 +162,7 @@ fn mode_median_average() {
             let ind_right = numbers.len() / 2;
             (numbers[ind_left] + numbers[ind_right]) as f64 / 2.0
         } else {
-            numbers[(numbers.len() / 2)] as f64
+            numbers[numbers.len() / 2] as f64
         }
     }
 
